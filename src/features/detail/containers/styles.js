@@ -45,22 +45,24 @@ const styles = StyleSheet.create({
   inputSearch: {},
 
   contentContainer: {
-    paddingVertical: sizes.SIZE_15,
+    paddingTop: sizes.SIZE_15,
     paddingHorizontal: sizes.SIZE_20,
     ...commonStyles.flex1,
   },
 
   scrollContent: {
-    paddingVertical: sizes.SIZE_10,
-    paddingBottom: sizes.SIZE_20,
+    // paddingVertical: sizes.SIZE_10,
+    // paddingBottom: sizes.SIZE_20,
+  },
+  contentContainerScroll: {
+    paddingTop: sizes.SIZE_10,
   },
   wrapImage: {
     position: 'relative',
     width: metrics.screenWidth - sizes.SIZE_40,
     height:
       ((metrics.screenWidth - sizes.SIZE_40) * sizes.SIZE_9) / sizes.SIZE_16,
-    // backgroundColor: 'red',
-    // borderRadius: sizes.SIZE_10,
+    marginTop: sizes.SIZE_10,
   },
   imageHeader: {
     width: metrics.screenWidth - sizes.SIZE_40,
@@ -113,6 +115,27 @@ const styles = StyleSheet.create({
 
   titleDiffApp: {
     marginTop: sizes.SIZE_20,
+  },
+
+  //flatlist
+  flatListContainer: {
+    marginTop: sizes.SIZE_10,
+    height: 550,
+  },
+  wrapList: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    width: metrics.widthBoxPaginate,
+    marginRight: sizes.SIZE_10,
+  },
+  //dot
+  dotContainer: {},
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginHorizontal: 4,
   },
 
   //bottom

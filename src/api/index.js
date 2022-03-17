@@ -9,12 +9,13 @@ export function api(path, method, params = {}) {
   options = {
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
     },
     timeout: TIME_OUT,
     method: method,
     data: params,
   };
+  console.log(ApiConstants.BASE_URL + path, 'ApiConstants.BASE_URL + path-');
   return axios(ApiConstants.BASE_URL + path, options)
     .then(json => {
       return json.data;

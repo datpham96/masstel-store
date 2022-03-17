@@ -16,21 +16,24 @@ const ItemComponent: React.FC<Props> = ({item, onPress}) => {
       style={styles.container}
       activeOpacity={0.9}
       onPress={onPress}>
-      <Image style={styles.image} source={images.avatars.picture_default} />
+      <Image
+        style={styles.image}
+        source={item.icon ? {uri: item.icon} : images.avatars.picture_default}
+      />
       <View style={styles.wrapInfo}>
         <Text
           props={{
             numberOfLines: sizes.SIZE_1,
           }}
           style={styles.title}>
-          {item.title}
+          {item.name}
         </Text>
         <Text
           props={{
             numberOfLines: sizes.SIZE_2,
           }}
           style={styles.subTitle}>
-          {item.body}
+          {item.short_description}
         </Text>
       </View>
     </TouchableOpacity>

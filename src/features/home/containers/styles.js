@@ -66,7 +66,9 @@ const styles = StyleSheet.create({
   },
 
   //dot
-  dotContainer: {},
+  dotContainer: {
+    top: 10,
+  },
   dot: {
     width: 8,
     height: 8,

@@ -1,12 +1,12 @@
 import {api} from 'api';
 import ApiConstants from '../ApiConstants';
 
-export function applicationList(limit, start) {
-  console.log(
-    ApiConstants.APPLICATION_LIST + '/?_limit=' + limit + '&_start=' + start,
-  );
-  return api(
-    ApiConstants.APPLICATION_LIST + '/?_limit=' + limit + '&_start=' + start,
-    'get',
-  );
+export function applicationList() {
+  return api(ApiConstants.APPLICATION_LIST, 'post');
+}
+
+export function applicationDetail(app_id) {
+  let bodyFormData = new FormData();
+  bodyFormData.append('app_id', app_id);
+  return api(ApiConstants.APPLICATION_DETAIL, 'post', bodyFormData);
 }
