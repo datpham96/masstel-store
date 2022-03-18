@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {SafeAreaView, View, Animated, Image} from 'react-native';
 import {sizes, commonStyles, colors} from 'styles';
 import images from 'images';
@@ -20,10 +20,13 @@ const totalItemWidth = metrics.screenWidth - sizes.SIZE_40;
 const Home = () => {
   const [textSearch, setTextSearch] = useState('');
   const navigation = useNavigation();
+  const typingTimoutRef = useRef(null);
+
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const [heightSlide, setHeightSlide] = useState(0);
   const [totalItemRow, setTotalItemRow] = useState(0);
   const [activePage, setActivePage] = useState(0);
+  const [debounceTextSearch, setDebounceTextSearch] = useState(false);
 
   const {data, refetch, isSuccess, isLoading} = useQuery(
     keyTypes.APPLICATION_LIST,
@@ -43,10 +46,21 @@ const Home = () => {
   const listDATA = React.useMemo(() => {
     let tmpList = [];
     if (data?.data && isSuccess && totalItemRow) {
-      for (let i = 0; i < Math.ceil(data.data.length / totalItemRow); i++) {
+      let listDataSearch = [];
+      if (textSearch === '') {
+        listDataSearch = [];
+      }
+      let list = data?.data;
+      const regex = new RegExp(`${textSearch.trim()}`, 'i');
+      listDataSearch = list.filter(obj => obj?.name.search(regex) >= 0);
+      for (
+        let i = 0;
+        i < Math.ceil(listDataSearch.length / totalItemRow);
+        i++
+      ) {
         tmpList.push({
           key: i,
-          data: data.data.slice(
+          data: listDataSearch.slice(
             totalItemRow * activePage,
             totalItemRow * (activePage + 1),
           ),
@@ -54,7 +68,19 @@ const Home = () => {
       }
     }
     return tmpList;
-  }, [data, isSuccess, totalItemRow, activePage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isSuccess, totalItemRow, activePage, debounceTextSearch]);
+
+  const handleSearchTermChange = val => {
+    setTextSearch(val);
+    if (typingTimoutRef.current) {
+      clearTimeout(typingTimoutRef.current);
+    }
+    typingTimoutRef.current = setTimeout(async () => {
+      //typing code
+      setDebounceTextSearch(!debounceTextSearch);
+    }, 300);
+  };
 
   const handleDetail = item => {
     navigation.navigate(navigationTypes.detail.screen, {app_id: item.id});
@@ -91,7 +117,7 @@ const Home = () => {
           <View style={styles.wrapInputSearch}>
             <Input
               value={textSearch}
-              onChangeValue={text => setTextSearch(text)}
+              onChangeValue={handleSearchTermChange}
               placeholder="Nhập thông tin cần tìm"
               style={styles.inputSearch}
             />

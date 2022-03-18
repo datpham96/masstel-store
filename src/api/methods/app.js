@@ -6,7 +6,8 @@ export function applicationList() {
 }
 
 export function applicationDetail(app_id) {
-  let bodyFormData = new FormData();
-  bodyFormData.append('app_id', app_id);
-  return api(ApiConstants.APPLICATION_DETAIL, 'post', bodyFormData);
+  let bodyData = {
+    app_id: app_id,
+  };
+  return api(ApiConstants.APPLICATION_DETAIL, 'post', bodyData);
 }

@@ -15,7 +15,6 @@ export function api(path, method, params = {}) {
     method: method,
     data: params,
   };
-  console.log(ApiConstants.BASE_URL + path, 'ApiConstants.BASE_URL + path-');
   return axios(ApiConstants.BASE_URL + path, options)
     .then(json => {
       return json.data;

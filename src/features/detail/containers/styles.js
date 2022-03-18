@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   inputSearch: {},
 
   contentContainer: {
-    paddingTop: sizes.SIZE_15,
+    // paddingTop: sizes.SIZE_15,
     paddingHorizontal: sizes.SIZE_20,
     ...commonStyles.flex1,
   },
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
   },
   wrapContentTitle: {
     ...commonStyles.flex1,
+    paddingRight: sizes.SIZE_10,
   },
   contentTitle: {
     fontSize: sizes.SIZE_20,
